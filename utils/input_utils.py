@@ -1,20 +1,24 @@
-def request_number(message, zero_value=True):
+def request_number(message, allow_zero=False):
+
     while True:
+
         try:
             value = float(input(message))
-            if zero_value:
+
+            if allow_zero:
+                if value >= 0:
+                    return value
+                print("El valor no puede ser negativo.")
+
+            else:
                 if value > 0:
                     return value
-                else:
-                    print("Valor tiene que ser mayor a 0")
-            else:
-                if value < 0:
-                    print("Valor no puede ser negativo")
-                else:
-                    return value
-                    
 
-            return value
-            
+                print("El valor debe ser mayor a 0.")
+
         except ValueError:
-            print("El valor debe ser un número. Intenta nuevamente.")
+
+            print(
+                "El valor debe ser un número. "
+                "Intenta nuevamente."
+            )
