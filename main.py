@@ -1,71 +1,64 @@
-from models.investment import Investment
-from views.investment_view import show_investment_summary
-from views.dollar_current_data import dollar_current_data_view
-from views.dollar_history_view import show_dollar_history
-from utils.input_utils import request_number
-from services.dollar_service import get_current_dollar_data, get_dollar_price
-from services.dollar_history_service import get_dollar_history
+from utils.input_utils import  request_integer
+from controllers.dollar_controller import run_dollar_market
+
 
 is_running = True 
 
-def request_investment_data():
-    data = get_current_dollar_data()
-    
-    capital_cop = request_number("Ingrese el capital en COP: ")
-    purchase_price = request_number("Ingrese el precio de compra ")
-    sale_price= get_dollar_price(data)
-    print(f"Precio de venta es {sale_price:,.2f}")
-    total_costs= request_number("Ingrese los costos totales: ", allow_zero=True)
-    target_profit= request_number("Ingrese la ganancia objetivo: ")
 
-    investment = Investment(
 
-    capital_cop= capital_cop,
-    purchase_price= purchase_price,
-    sale_price=sale_price,
-    total_costs=total_costs,
-    target_profit=target_profit
-    )
 
-    return investment
 
-def show_menu():
-
+def show_category_operation():
     print("""
 =====================================
-               IADOLAR
+              MARKET
 =====================================
 
-1. Analizar una inversión
-2. Mostrar precio dolar
-3. Mostrar historial de los últimos 15 días
-4. Salir
-""")
-    menu_option= int(input("Elige una opcion: "))
+Seleccione el mercado:
 
-    return menu_option
+1. Dólar USD/COP
+2. Acciones
+3. Criptomonedas
+4. Salir
+          """)
+    
+    category_option = request_integer("Elige una opcion: ")
+    
+    return category_option
+
+
+
+
+
+
 
         
 while is_running: 
-    try: 
-        option = show_menu()
-        if option == 1:
-            investment = request_investment_data()
-            show_investment_summary(investment)
-            
-        elif option == 2:
-            dollar_data = get_current_dollar_data()
-            dollar_current_data_view(dollar_data)
-            
-        elif option == 3:
-            dollar_history = get_dollar_history()
-            show_dollar_history(dollar_history)
-    
-        elif option == 4: 
-            print("Programa finalizado.")
+    try:
+        category_option = show_category_operation()
+        
+        if category_option == 1:
+            run_dollar_market()
+             
+        elif category_option == 2: 
+            print(
+                "El mercado de acciones "
+                "estará disponible "
+                "próximamente."
+            )
+        elif category_option == 3: 
+                    print(
+                        "El mercado de criptomonedas"
+                        "estará disponible "
+                        "próximamente."
+                    )
+                    
+        elif category_option == 4: 
+            print("Programa finalizado")
             is_running = False
         else:
             print("Opción inválida. Intenta nuevamente.")
+            
 
     except ValueError as error:
         print()

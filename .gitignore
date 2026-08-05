@@ -1,21 +1,22 @@
-# Archivos de caché de Python
+# Entorno virtual
+.venv/
+venv/
+
+# Archivos compilados de Python
 __pycache__/
 *.py[cod]
-__pycache__/
 *.pyc
 
-# Entornos virtuales
-venv/
-.venv/
-env/
+# Archivos temporales de Python
+*.pyo
+*.pyd
 
-# Variables de entorno y secretos
+# Archivos de configuración local
 .env
 
-# Archivos de configuración del editor
+# Archivos de Visual Studio Code
 .vscode/
-.idea/
 
-# Archivos temporales del sistema
+# Archivos del sistema operativo
 .DS_Store
 Thumbs.db

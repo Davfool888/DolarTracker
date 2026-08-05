@@ -1,9 +1,9 @@
 import requests
 
-def get_dollar_history():
+def get_dollar_history(days):
     
     try: 
-        url = "https://www.datos.gov.co/resource/mcec-87by.json?$order=vigenciadesde DESC&$limit=15"
+        url = f"https://www.datos.gov.co/resource/mcec-87by.json?$order=vigenciadesde DESC&$limit={days}"
         response = requests.get(url, timeout =10)
         response.raise_for_status()
         data = response.json()
