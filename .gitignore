@@ -20,3 +20,8 @@ __pycache__/
 # Archivos del sistema operativo
 .DS_Store
 Thumbs.db
+
+# Datasets históricos
+data/raw/
+data/processed/
+.json

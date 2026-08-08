@@ -1,13 +1,14 @@
 from models.investment import Investment
 from views.investment_view import show_investment_summary
-from views.dollar_current_data import dollar_current_data_view
-from views.dollar_history_view import show_dollar_history
+from views.market_current_data import show_current_market_data
+from views.market_history_view import show_market_history
 from utils.input_utils import request_integer, request_number
-from services.dollar_service import get_current_dollar_data, get_dollar_price
-from services.dollar_history_service import get_dollar_history
+from services.dollar_service import get_dollar_price
+from services.market_service import get_current_market_data, get_market_history
 
-def request_investment_data():
-    data = get_current_dollar_data()
+
+def request_investment_data(select_market):
+    data = get_current_market_data(select_market)
     
     capital_cop = request_number("Ingrese el capital en COP: ")
     purchase_price = request_number("Ingrese el precio de compra ")
@@ -46,29 +47,30 @@ def show_menu():
 
 
 
-def select_days():
-    days = request_integer("Elige el número de días "
+def select_registers():
+    registers = request_integer("Elige el número de días "
             "a ver en el historial: ")
-    return days
+    return registers
 
 
-def run_dollar_market():
+def run_dollar_market(selected_market):
     is_dollar_market_running = True
     
     while is_dollar_market_running:
         option = show_menu()
         
         if option == 1:
-            investment = request_investment_data()
+            investment = request_investment_data(selected_market)
             show_investment_summary(investment)
                         
         elif option == 2:
-            dollar_data = get_current_dollar_data()
-            dollar_current_data_view(dollar_data)
+            market_data = get_current_market_data(selected_market) 
+            show_current_market_data(market_data)
                         
         elif option == 3:
-            dollar_history = get_dollar_history(select_days())
-            show_dollar_history(dollar_history)
+            registers = select_registers()
+            market_history = get_market_history(selected_market, registers)
+            show_market_history(market_history)
                 
         elif option == 4: 
             print("Saliendo del mercado "

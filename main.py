@@ -2,6 +2,7 @@ from utils.input_utils import  request_integer
 from controllers.dollar_controller import run_dollar_market
 
 
+
 is_running = True 
 
 
@@ -24,7 +25,19 @@ Seleccione el mercado:
     
     category_option = request_integer("Elige una opcion: ")
     
-    return category_option
+    if category_option == 1: 
+        return "USD/COP"
+    elif category_option == 2: 
+        return "STOCK"
+    elif category_option == 3: 
+        return "CRYPTO" 
+    elif category_option == 4: 
+        return "EXIT"
+    else:
+        print("Opción inválida. "
+            "Intenta nuevamente.")
+        
+        return None
 
 
 
@@ -35,30 +48,32 @@ Seleccione el mercado:
         
 while is_running: 
     try:
-        category_option = show_category_operation()
+        select_market = show_category_operation()
         
-        if category_option == 1:
-            run_dollar_market()
-             
-        elif category_option == 2: 
+        if select_market == "USD/COP":
+            run_dollar_market(select_market)
+            
+        elif select_market == "CRYPTO":
             print(
-                "El mercado de acciones "
+        "El mercado de Cripto "
+        "estará disponible "
+        "próximamente."
+                 )
+            
+        elif select_market == "STOCK":
+                    print(
+                "El mercado de Acciones "
                 "estará disponible "
                 "próximamente."
-            )
-        elif category_option == 3: 
-                    print(
-                        "El mercado de criptomonedas"
-                        "estará disponible "
-                        "próximamente."
-                    )
+                         )
                     
-        elif category_option == 4: 
-            print("Programa finalizado")
-            is_running = False
-        else:
-            print("Opción inválida. Intenta nuevamente.")
-            
+        elif select_market == "EXIT":
+                     print(
+        "Programa finalizado.")
+                     is_running = False
+                     
+        elif select_market == None: 
+            continue
 
     except ValueError as error:
         print()
