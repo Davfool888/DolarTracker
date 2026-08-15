@@ -1,5 +1,6 @@
 import json 
 from models.market_candle import MarketCandle
+from models.market_segment import MarketSegment
 
 def get_historical_sample(limit=10):
     file_path = "data/raw/xbtusd_1m.json"
@@ -73,31 +74,15 @@ def segment_candles(candles):
     if current_segment:
         segments.append(current_segment)
     return segments
+
+
         
 if __name__ == "__main__":
 
-    candles = get_historical_sample(1000)
-
-    segments = segment_candles(candles)
-
-    print()
-    print("===================================")
-    print("SEGMENTOS")
-    print("===================================")
-
-    for i, segment in enumerate(segments, start=1):
-
-        print(
-            f"Segmento {i}: "
-            f"{len(segment)} candles"
-        )
-
-        print(
-            f"Inicio: {segment[0].timestamp}"
-        )
-
-        print(
-            f"Fin:    {segment[-1].timestamp}"
-        )
-
-        print()
+    candles = get_historical_sample(20)
+    segment = MarketSegment(candles=candles, timeframe="1m")
+    print("Inicio:", segment.start)
+    print("Fin:", segment.end)
+    print("Timeframe:", segment.timeframe)
+    print("Cantidad:", len(segment.candles))
+    print("Continuous:", segment.is_continuous())
